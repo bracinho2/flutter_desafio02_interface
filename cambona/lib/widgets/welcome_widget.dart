@@ -1,7 +1,6 @@
+import 'package:cambona/core/app_responsivity.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 
 class WelcomeWidget extends StatelessWidget {
   final String title;

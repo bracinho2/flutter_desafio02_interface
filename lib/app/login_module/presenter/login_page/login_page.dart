@@ -1,3 +1,7 @@
+import 'package:cambona/widgets/confirm_buttom_widget.dart';
+import 'package:cambona/widgets/input_text_field_widget.dart';
+import 'package:cambona/widgets/text_title_widget.dart';
+import 'package:cambona/widgets/welcome_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/login_page/login_controller.dart';
@@ -5,10 +9,6 @@ import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_p
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
 import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
-import 'package:flutter_desafio02_interface/app/share/widgets/confirm_buttom_widget.dart';
-import 'package:flutter_desafio02_interface/app/share/widgets/input_text_field_widget.dart';
-import 'package:flutter_desafio02_interface/app/share/widgets/text_title_widget.dart';
-import 'package:flutter_desafio02_interface/app/share/widgets/welcome_widget.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
