@@ -9,7 +9,7 @@ class Validators {
         caseSensitive: false);
     final result = regExp.hasMatch(value!);
     if (!result) {
-      return 'Senha Inválida!';
+      return 'CPF Inválido!';
     }
     return null;
   }
@@ -31,6 +31,10 @@ class Validators {
     if (!result) {
       return 'Your Password is Wrong!';
     }
+    return null;
+  }
+
+  static String? validatePhone(String? value) {
     return null;
   }
 }

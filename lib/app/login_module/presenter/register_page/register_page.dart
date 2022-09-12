@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
-import 'package:flutter_desafio02_interface/app/login_page/login_controller.dart';
-import 'package:flutter_desafio02_interface/app/profile_page/profile_page.dart';
-import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
+import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_controller.dart';
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 import 'package:flutter_desafio02_interface/app/share/widgets/confirm_buttom_widget.dart';
 import 'package:flutter_desafio02_interface/app/share/widgets/input_text_field_widget.dart';
 import 'package:flutter_desafio02_interface/app/share/widgets/text_title_widget.dart';
+import 'package:flutter_desafio02_interface/app/share/widgets/welcome_widget.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatelessWidget {
+  RegisterPage({Key? key}) : super(key: key);
 
-  final controller = LoginController();
+  final controller = RegisterController();
 
+  final _nameController = TextEditingController();
+  final _cpfController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
@@ -29,48 +31,14 @@ class LoginPage extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 500),
           child: ListView(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Resposivity.automatic(24, mediaQueryData)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: Resposivity.automatic(15, mediaQueryData),
-                      ),
-                      child: Text(
-                        'Hello',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: Resposivity.automatic(30, mediaQueryData),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'Are You New Here?',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: Resposivity.automatic(30, mediaQueryData),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: Resposivity.automatic(25, mediaQueryData),
-                        bottom: Resposivity.automatic(35, mediaQueryData),
-                      ),
-                      child: Text(
-                        'If You Have an Account/Login?',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: Resposivity.automatic(20, mediaQueryData),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              WelcomeWidget(
+                title: 'Hello',
+                subtitle: 'Are You new here?',
+                ask: 'if you have an account',
+                link: 'Login',
+                route: () {
+                  Navigator.pop(context);
+                },
               ),
               Container(
                 decoration: const BoxDecoration(
@@ -92,11 +60,34 @@ class LoginPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        //INPUT TEXT FORM FIELD
+                        const TextTitleWidget(title: 'Full Name'),
+                        InputTextFieldWidget(
+                          label: 'Full Name',
+                          controller: _nameController,
+                          validator: Validators.validateName,
+                          prefixIcon: Icons.person,
+                        ),
+                        const TextTitleWidget(title: 'CPF'),
+                        InputTextFieldWidget(
+                          label: 'CPF',
+                          controller: _cpfController,
+                          validator: Validators.validateCPF,
+                          prefixIcon: Icons.numbers,
+                        ),
                         const TextTitleWidget(title: 'Email'),
                         InputTextFieldWidget(
                           label: 'Email',
                           controller: _emailController,
                           validator: Validators.validateEmail,
+                          prefixIcon: Icons.email,
+                        ),
+                        const TextTitleWidget(title: 'Phone'),
+                        InputTextFieldWidget(
+                          label: 'Phone',
+                          controller: _phoneController,
+                          validator: Validators.validatePhone,
+                          prefixIcon: Icons.phone,
                         ),
                         const TextTitleWidget(title: 'Password'),
                         InputTextFieldWidget(
@@ -105,24 +96,21 @@ class LoginPage extends StatelessWidget {
                           validator: Validators.validatePassword,
                           obscure: true,
                           actionIcon: true,
+                          prefixIcon: Icons.password,
                         ),
                         //REGISTER BUTTON
                         ConfirmButtonWidget(
-                          title: 'Sign In',
+                          title: 'Sign Up',
                           onPressed: () {
-                            final validate = controller.loginValidate(
+                            final validate = controller.registerValidate(
+                              name: _nameController.text,
+                              cpf: _cpfController.text,
                               email: _emailController.text,
+                              phone: _phoneController.text,
                               password: _passwordController.text,
                             );
-
                             if (validate) {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => ProfilePage())));
-                            } else {
-                              SnackBarManager().showError(
-                                  message: 'Email or Password Wrong');
+                              Navigator.pop(context);
                             }
                           },
                         ),

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class InputTextFieldWidget extends StatelessWidget {
+class InputTextFieldWidget extends StatefulWidget {
   final String label;
   final TextEditingController controller;
-  String? Function(String?)? validator;
-  bool obscure;
-  bool actionIcon;
+  final String? Function(String?)? validator;
+  final IconData prefixIcon;
+  final bool obscure;
+  final bool actionIcon;
   InputTextFieldWidget({
     Key? key,
     required this.label,
@@ -13,20 +14,55 @@ class InputTextFieldWidget extends StatelessWidget {
     this.validator,
     this.obscure = false,
     this.actionIcon = false,
+    required this.prefixIcon,
   }) : super(key: key);
+
+  @override
+  State<InputTextFieldWidget> createState() => _InputTextFieldWidgetState();
+}
+
+class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
+  bool showPassword = false;
+  @override
+  void initState() {
+    super.initState();
+    showPassword = widget.obscure;
+  }
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-        label: Text(label),
+        label: Text(
+          widget.label,
+          style: const TextStyle(
+            color: Colors.black38,
+          ),
+        ),
         filled: false,
-        suffixIcon: actionIcon ? const Icon(Icons.visibility) : null,
-        prefixIcon: const SizedBox(
+        suffixIcon: widget.actionIcon
+            ? InkWell(
+                onTap: () {
+                  setState(() {
+                    showPassword = !showPassword;
+                  });
+                },
+                child: SizedBox(
+                  height: 64,
+                  width: 64,
+                  child: Icon(
+                    showPassword ? Icons.visibility : Icons.visibility_off,
+                    color: showPassword ? Colors.blue : Colors.grey,
+                  ),
+                ),
+              )
+            : null,
+        prefixIcon: SizedBox(
           height: 64,
           width: 64,
           child: Icon(
-            Icons.person,
+            widget.prefixIcon,
+            color: Colors.blue,
           ),
         ),
         border: const OutlineInputBorder(
@@ -41,9 +77,9 @@ class InputTextFieldWidget extends StatelessWidget {
           ),
         ),
       ),
-      controller: controller,
-      validator: validator,
-      obscureText: obscure,
+      controller: widget.controller,
+      validator: widget.validator,
+      obscureText: showPassword,
     );
   }
 }

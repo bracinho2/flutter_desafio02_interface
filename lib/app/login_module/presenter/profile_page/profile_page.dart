@@ -1,10 +1,13 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
-import 'package:flutter_desafio02_interface/app/profile_page/profile_controller.dart';
+import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_controller.dart';
+import 'package:flutter_desafio02_interface/app/share/dummy_data/dummy_user.dart';
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 import 'package:flutter_desafio02_interface/app/share/widgets/confirm_buttom_widget.dart';
 import 'package:flutter_desafio02_interface/app/share/widgets/input_text_field_widget.dart';
 import 'package:flutter_desafio02_interface/app/share/widgets/text_title_widget.dart';
+import 'package:flutter_desafio02_interface/app/share/widgets/welcome_widget.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -14,11 +17,20 @@ class ProfilePage extends StatelessWidget {
   final _nameController = TextEditingController();
   final _cpfController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
+
+    if (FakeUser.user != null) {
+      _nameController.text = FakeUser.user!.name;
+      _cpfController.text = FakeUser.user!.cpf;
+      _emailController.text = FakeUser.user!.email;
+      _phoneController.text = FakeUser.user!.phone;
+      _passwordController.text = FakeUser.user!.password;
+    }
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -29,48 +41,10 @@ class ProfilePage extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 500),
           child: ListView(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: Resposivity.automatic(24, mediaQueryData)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: Resposivity.automatic(15, mediaQueryData),
-                      ),
-                      child: Text(
-                        'Setting up your',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: Resposivity.automatic(30, mediaQueryData),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'profile',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: Resposivity.automatic(30, mediaQueryData),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        top: Resposivity.automatic(25, mediaQueryData),
-                        bottom: Resposivity.automatic(35, mediaQueryData),
-                      ),
-                      child: Text(
-                        'Add your profile photo',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: Resposivity.automatic(20, mediaQueryData),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              const WelcomeWidget(
+                title: 'Setting up your',
+                subtitle: 'profile',
+                ask: 'Add your profile photo',
               ),
               Container(
                 decoration: const BoxDecoration(
@@ -98,18 +72,28 @@ class ProfilePage extends StatelessWidget {
                           label: 'Full Name',
                           controller: _nameController,
                           validator: Validators.validateName,
+                          prefixIcon: Icons.person,
                         ),
                         const TextTitleWidget(title: 'CPF'),
                         InputTextFieldWidget(
                           label: 'CPF',
                           controller: _cpfController,
                           validator: Validators.validateCPF,
+                          prefixIcon: Icons.numbers,
                         ),
                         const TextTitleWidget(title: 'Email'),
                         InputTextFieldWidget(
                           label: 'Email',
                           controller: _emailController,
                           validator: Validators.validateEmail,
+                          prefixIcon: Icons.email,
+                        ),
+                        const TextTitleWidget(title: 'Phone'),
+                        InputTextFieldWidget(
+                          label: 'Phone',
+                          controller: _phoneController,
+                          validator: Validators.validateEmail,
+                          prefixIcon: Icons.phone,
                         ),
                         const TextTitleWidget(title: 'Password'),
                         InputTextFieldWidget(
@@ -118,6 +102,7 @@ class ProfilePage extends StatelessWidget {
                           validator: Validators.validatePassword,
                           obscure: true,
                           actionIcon: true,
+                          prefixIcon: Icons.password,
                         ),
                         //REGISTER BUTTON
                         ConfirmButtonWidget(

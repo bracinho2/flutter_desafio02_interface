@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desafio02_interface/app/share/dummy_data/dummy_user.dart';
 
 class LoginController {
   final formKey = GlobalKey<FormState>();
@@ -7,7 +8,12 @@ class LoginController {
     required String password,
   }) {
     if (formKey.currentState!.validate()) {
-      if (email == 'bracinho2@hotmail.com') {
+      if (FakeUser.user == null) {
+        return false;
+      }
+
+      if (email == FakeUser.user!.email &&
+          password == FakeUser.user!.password) {
         return true;
       } else {
         return false;

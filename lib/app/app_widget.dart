@@ -16,18 +16,23 @@ class AppWidget extends StatelessWidget {
           elevation: 0,
           backgroundColor: Colors.transparent,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: Colors.blue,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.deepPurple[400],
           ),
         ),
       ),
       scaffoldMessengerKey: SnackBarManager.snackKey,
       home: const SplashPage(),
-      // initialRoute: '/profile',
+      // initialRoute: '/',
       // routes: {
-      //   '/': (_) => const SplashPage(),
-      //   '/login': (_) => LoginPage(),
-      //   '/register': (_) => RegisterPage(),
-      //   '/profile': (_) => ProfilePage(),
+      //   AppRouter.SPLASH: (_) => const SplashPage(),
+      //   AppRouter.LOGIN: (_) => LoginPage(),
+      //   AppRouter.REGISTER: (_) => RegisterPage(),
+      //   AppRouter.PROFILE: (_) => ProfilePage(),
       // },
     );
   }

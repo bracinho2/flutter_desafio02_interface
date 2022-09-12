@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
-import 'package:flutter_desafio02_interface/app/login_page/login_page.dart';
-import 'package:flutter_desafio02_interface/app/register_page/register_controller.dart';
+import 'package:flutter_desafio02_interface/app/login_module/presenter/login_page/login_page.dart';
+import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_controller.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
