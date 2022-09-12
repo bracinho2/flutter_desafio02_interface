@@ -38,6 +38,19 @@ Reproduzir mockup mais fiel possivel no flutter. O MOCKUP está disponível para
     - Consulte o desafio 01; Basicamente vamos respeitar o que aprendemos naquele momento;
 
 - Theme (Design System em Monorepo);
+    - Dica para criar o package:
+        > '''flutter create --template=package cambona'''
+
+    - No arquivo principal você deve exportar os arquivos; Do contrário eles não ficarão visíveis para o outro projeto;
+
+    > '''//exportação dos arquivos;
+    export 'themes/themes.dart';'''
+
+    - Há a necessidade de relatar no Pubspec o caminho para o novo package:
+
+    '''#o caminho poderá ter um ../ indicando a navegação entre pastas;
+  cambona:
+    path: cambona '''
 
 - Validação de campos:
     - Devemos utilizar Regex;
