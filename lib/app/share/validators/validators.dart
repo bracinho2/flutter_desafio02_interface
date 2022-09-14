@@ -26,15 +26,32 @@ class Validators {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) return 'Your password is empty.';
-    RegExp regExp = RegExp("[0-9]", caseSensitive: false);
-    final result = regExp.hasMatch(value);
-    if (!result) {
-      return 'Your Password is Wrong!';
-    }
+    if (value.length < 6) return 'Your password is too short.';
+
+    RegExp haveNumber = RegExp("[0-9]", caseSensitive: false);
+    RegExp haveLowerCase = RegExp("[a-z]", caseSensitive: true);
+    RegExp haveUpperCase = RegExp("[A-Z]", caseSensitive: true);
+    RegExp haveSpecialCaracters = RegExp("[.,!@#\$%&*]", caseSensitive: false);
+
+    if (!haveNumber.hasMatch(value)) return 'Your password need numbers!';
+    if (!haveLowerCase.hasMatch(value))
+      return 'Your password need a lower case!';
+    if (!haveUpperCase.hasMatch(value))
+      return 'Your password need an upper case!';
+
+    if (!haveSpecialCaracters.hasMatch(value))
+      return 'Your password need an upper case!';
+
     return null;
   }
 
   static String? validatePhone(String? value) {
     return null;
   }
+
+  //minimo 6 caracteres;
+  //letra maiuscula + minuscula
+  //numeros
+  //especial
+
 }

@@ -35,6 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   brasil_fields: ^1.5.0
+  dio: ^4.0.6
 
   #o caminho poderá ter um ../ indicando a navegação entre pastas;
   cambona:

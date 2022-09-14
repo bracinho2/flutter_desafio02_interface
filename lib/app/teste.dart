@@ -45,7 +45,7 @@ class Controller {
 }
 
 class Repository {
-  ServiceAPI service = ServiceAPI();
+  HttpClientDatasource service = ServiceAPI();
 
   Future<List<PersonModel>> fetch() async {
     final response = await service.fetch();
@@ -56,11 +56,12 @@ class Repository {
 }
 
 //Class abstrata HttpClient; //DIP
-abstract class HttpClient {
+abstract class HttpClientDatasource {
   Future<List<Map<String, dynamic>>> fetch();
 }
 
-class ServiceAPI {
+class ServiceAPI implements HttpClientDatasource {
+  @override
   Future<List<Map<String, dynamic>>> fetch() async {
     //DIO > SABE CONECTAR NA INTERNET;
     //final respose = await consultaMInhaapi();
