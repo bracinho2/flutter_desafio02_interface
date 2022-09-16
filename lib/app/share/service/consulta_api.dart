@@ -2,13 +2,7 @@ import 'package:dio/dio.dart';
 
 class ConsultaAPI {
   final Dio _dio;
-  final consulta = {
-    "dominio": "insidesistemas",
-    "senha": "*tjZl\$a^Zs9A",
-    "classe": "empresa",
-    "metodo": "listar_por_cnpj",
-    "cnpj": "05.623.256/0001-79"
-  };
+  final consulta = {};
 
   final url = 'http://kubolms.com.br/universidade/admin/api/api.php';
 
