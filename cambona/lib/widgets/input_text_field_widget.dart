@@ -7,7 +7,7 @@ class InputTextFieldWidget extends StatefulWidget {
   final IconData prefixIcon;
   final bool obscure;
   final bool actionIcon;
-  InputTextFieldWidget({
+  const InputTextFieldWidget({
     Key? key,
     required this.label,
     required this.controller,

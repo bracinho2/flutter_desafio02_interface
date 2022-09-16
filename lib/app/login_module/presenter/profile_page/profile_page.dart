@@ -1,4 +1,6 @@
+import 'package:cambona/dummy/contries.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
+import 'package:cambona/widgets/drop_down_menu.dart';
 import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
 import 'package:cambona/widgets/welcome_widget.dart';
@@ -6,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_controller.dart';
 import 'package:flutter_desafio02_interface/app/share/dummy_data/dummy_user.dart';
+
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -102,6 +105,12 @@ class ProfilePage extends StatelessWidget {
                           obscure: true,
                           actionIcon: true,
                           prefixIcon: Icons.password,
+                        ),
+                        const TextTitleWidget(title: 'Country'),
+                        DropDownWidget(
+                          data: countries,
+                          onChanged: (country) {},
+                          label: 'Country',
                         ),
                         //REGISTER BUTTON
                         ConfirmButtonWidget(

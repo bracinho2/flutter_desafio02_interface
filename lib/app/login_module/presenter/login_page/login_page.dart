@@ -2,11 +2,13 @@ import 'package:cambona/widgets/confirm_buttom_widget.dart';
 import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
 import 'package:cambona/widgets/welcome_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/login_page/login_controller.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_page.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
+import 'package:flutter_desafio02_interface/app/share/service/consulta_api.dart';
 import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
@@ -81,24 +83,29 @@ class LoginPage extends StatelessWidget {
                         ConfirmButtonWidget(
                           title: 'Sign In',
                           onPressed: () {
-                            final validate = controller.loginValidate(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            );
+                            // final validate = controller.loginValidate(
+                            //   email: _emailController.text,
+                            //   password: _passwordController.text,
+                            // );
 
-                            if (_emailController.text.isEmpty &&
-                                _passwordController.text.isEmpty) {
-                            } else {
-                              if (validate) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: ((context) => ProfilePage())));
-                              } else {
-                                SnackBarManager().showError(
-                                    message: 'Email or Password Wrong');
-                              }
-                            }
+                            // if (_emailController.text.isEmpty &&
+                            //     _passwordController.text.isEmpty) {
+                            // } else {
+                            //   if (validate) {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: ((context) => ProfilePage())));
+                            //   } else {
+                            //     SnackBarManager().showError(
+                            //         message: 'Email or Password Wrong');
+                            //   }
+                            // }
+
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: ((context) => ProfilePage())));
                           },
                         ),
                       ],
