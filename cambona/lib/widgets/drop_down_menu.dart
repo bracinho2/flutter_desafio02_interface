@@ -4,39 +4,38 @@ import 'package:flutter/material.dart';
 class DropDownWidget extends StatelessWidget {
   final String label;
   final List<Country> data;
-  final Function(String?)? onChanged;
   final Country? value;
-  const DropDownWidget({
+  final Function(Country?)? onChanged;
+
+  DropDownWidget({
     Key? key,
+    this.value,
     required this.data,
     required this.onChanged,
     required this.label,
-    this.value,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool selected = false;
     return DropdownButtonFormField<Country>(
-      decoration: InputDecoration(
-        prefixIcon: selected != true
-            ? const SizedBox(
-                height: 64,
-                width: 64,
-                child: Icon(
-                  Icons.pin_drop_outlined,
-                  color: Colors.blue,
-                ),
-              )
-            : null,
-        border: const OutlineInputBorder(
+      decoration: const InputDecoration(
+        prefixIcon: SizedBox(
+          height: 64,
+          width: 64,
+          child: Icon(
+            Icons.pin_drop_outlined,
+            color: Colors.blue,
+          ),
+        ),
+        border: OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(5),
           ),
         ),
         filled: false,
-        labelText: label,
-        enabledBorder: const OutlineInputBorder(
+        label: Text('Select your Country'),
+        //labelText: label,
+        enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue, width: 0.0),
           borderRadius: BorderRadius.all(
             Radius.circular(5),
@@ -62,9 +61,7 @@ class DropDownWidget extends StatelessWidget {
         );
       }).toList(),
       value: value,
-      onChanged: (value) {
-        selected = !selected;
-      },
+      onChanged: onChanged,
     );
   }
 }
