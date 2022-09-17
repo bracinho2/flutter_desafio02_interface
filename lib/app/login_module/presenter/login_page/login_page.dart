@@ -9,6 +9,7 @@ import 'package:flutter_desafio02_interface/app/login_module/presenter/login_pag
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_page.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
 import 'package:flutter_desafio02_interface/app/share/service/consulta_api.dart';
+import 'package:flutter_desafio02_interface/app/share/service/consulta_teste.dart';
 import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
@@ -20,9 +21,13 @@ class LoginPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  final consulta = ConsultaDio();
+
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
+
+    consulta.fetch();
 
     return Scaffold(
       resizeToAvoidBottomInset: true,

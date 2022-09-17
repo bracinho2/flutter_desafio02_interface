@@ -1,11 +1,11 @@
 import 'package:cambona/cambona.dart';
 import 'package:flutter/material.dart';
 
-class DropDownWidget extends StatelessWidget {
+class DropDownWidget extends StatefulWidget {
   final String label;
   final List<Country> data;
   final Country? value;
-  final Function(Country?)? onChanged;
+  final Function(Country?) onChanged;
 
   DropDownWidget({
     Key? key,
@@ -16,26 +16,41 @@ class DropDownWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DropDownWidget> createState() => _DropDownWidgetState();
+}
+
+class _DropDownWidgetState extends State<DropDownWidget> {
+  Country? selected;
+
+  @override
+  void initState() {
+    super.initState();
+    selected = widget.value;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<Country>(
-      decoration: const InputDecoration(
-        prefixIcon: SizedBox(
-          height: 64,
-          width: 64,
-          child: Icon(
-            Icons.pin_drop_outlined,
-            color: Colors.blue,
-          ),
-        ),
-        border: OutlineInputBorder(
+      decoration: InputDecoration(
+        prefixIcon: selected == null
+            ? const SizedBox(
+                height: 64,
+                width: 64,
+                child: Icon(
+                  Icons.pin_drop_outlined,
+                  color: Colors.blue,
+                ),
+              )
+            : null,
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(5),
           ),
         ),
         filled: false,
-        label: Text('Select your Country'),
+        label: const Text('Select your Country'),
         //labelText: label,
-        enabledBorder: OutlineInputBorder(
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue, width: 0.0),
           borderRadius: BorderRadius.all(
             Radius.circular(5),
@@ -43,7 +58,7 @@ class DropDownWidget extends StatelessWidget {
         ),
       ),
       isExpanded: true,
-      items: data.map<DropdownMenuItem<Country>>((Country value) {
+      items: widget.data.map<DropdownMenuItem<Country>>((Country value) {
         return DropdownMenuItem<Country>(
           value: value,
           child: Row(
@@ -60,8 +75,13 @@ class DropDownWidget extends StatelessWidget {
           ),
         );
       }).toList(),
-      value: value,
-      onChanged: onChanged,
+      value: selected,
+      onChanged: (value) {
+        widget.onChanged.call(value);
+        setState(() {
+          selected = value;
+        });
+      },
     );
   }
 }

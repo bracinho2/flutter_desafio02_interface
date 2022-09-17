@@ -1,4 +1,6 @@
+import 'package:cambona/dummy/contries.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
+import 'package:cambona/widgets/drop_down_menu.dart';
 import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
 import 'package:cambona/widgets/welcome_widget.dart';
@@ -17,6 +19,8 @@ class RegisterPage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  Country? selectedCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +102,14 @@ class RegisterPage extends StatelessWidget {
                           actionIcon: true,
                           prefixIcon: Icons.password,
                         ),
+                        const TextTitleWidget(title: 'Country'),
+                        DropDownWidget(
+                          data: countries,
+                          onChanged: (country) {
+                            selectedCountry = country;
+                          },
+                          label: 'Country',
+                        ),
                         //REGISTER BUTTON
                         ConfirmButtonWidget(
                           title: 'Sign Up',
@@ -108,6 +120,7 @@ class RegisterPage extends StatelessWidget {
                               email: _emailController.text,
                               phone: _phoneController.text,
                               password: _passwordController.text,
+                              country: selectedCountry!,
                             );
                             if (validate) {
                               Navigator.pop(context);

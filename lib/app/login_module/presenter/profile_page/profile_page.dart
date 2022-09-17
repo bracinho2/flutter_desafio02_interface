@@ -26,12 +26,15 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
 
+    Country? selectedCountry;
+
     if (FakeUser.user != null) {
       _nameController.text = FakeUser.user!.name;
       _cpfController.text = FakeUser.user!.cpf;
       _emailController.text = FakeUser.user!.email;
       _phoneController.text = FakeUser.user!.phone;
       _passwordController.text = FakeUser.user!.password;
+      selectedCountry = FakeUser.user?.country;
     }
 
     return Scaffold(
@@ -111,6 +114,7 @@ class ProfilePage extends StatelessWidget {
                           data: countries,
                           onChanged: (country) {},
                           label: 'Country',
+                          value: selectedCountry,
                         ),
                         //REGISTER BUTTON
                         ConfirmButtonWidget(
