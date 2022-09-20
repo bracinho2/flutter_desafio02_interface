@@ -1,5 +1,7 @@
 //Model | Entidade;
 
+import 'package:dio/dio.dart';
+
 void main() {
   Controller controller = Controller();
   controller.fetch();
@@ -45,7 +47,7 @@ class Controller {
 }
 
 class Repository {
-  HttpClientDatasource service = ServiceAPI();
+  IHttpClient service = HttpClientImpl();
 
   Future<List<PersonModel>> fetch() async {
     final response = await service.fetch();
@@ -56,11 +58,20 @@ class Repository {
 }
 
 //Class abstrata HttpClient; //DIP
-abstract class HttpClientDatasource {
+abstract class IHttpClient {
   Future<List<Map<String, dynamic>>> fetch();
 }
 
-class ServiceAPI implements HttpClientDatasource {
+//Convensao pedagogica:
+// - I+NOme = interface (classe abstrata)
+// - NOme + Impl = implementaçao do contrato;
+
+//Convensao Profissional
+//Nome = interface (some o I)
+//Nome + impl = implementacao do contrato;
+
+class HttpClientImpl implements IHttpClient {
+  Dio dio = Dio();
   @override
   Future<List<Map<String, dynamic>>> fetch() async {
     //DIO > SABE CONECTAR NA INTERNET;

@@ -1,4 +1,5 @@
-import 'package:cambona/cambona.dart';
+import 'package:cambona/core/generics_dropdown.dart';
+import 'package:cambona/dummy/contries.dart';
 import 'package:flutter/material.dart';
 
 class DropDownWidget extends StatefulWidget {
@@ -7,7 +8,7 @@ class DropDownWidget extends StatefulWidget {
   final Country? value;
   final Function(Country?) onChanged;
 
-  DropDownWidget({
+  const DropDownWidget({
     Key? key,
     this.value,
     required this.data,
@@ -20,7 +21,7 @@ class DropDownWidget extends StatefulWidget {
 }
 
 class _DropDownWidgetState extends State<DropDownWidget> {
-  Country? selected;
+  DropDownGenerics? selected;
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<Country>(
+    return DropdownButtonFormField<DropDownGenerics>(
       decoration: InputDecoration(
         prefixIcon: selected == null
             ? const SizedBox(
@@ -58,8 +59,9 @@ class _DropDownWidgetState extends State<DropDownWidget> {
         ),
       ),
       isExpanded: true,
-      items: widget.data.map<DropdownMenuItem<Country>>((Country value) {
-        return DropdownMenuItem<Country>(
+      items:
+          widget.data.map<DropdownMenuItem<DropDownGenerics>>((Country value) {
+        return DropdownMenuItem<DropDownGenerics>(
           value: value,
           child: Row(
             children: [
@@ -77,7 +79,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
       }).toList(),
       value: selected,
       onChanged: (value) {
-        widget.onChanged.call(value);
+        widget.onChanged(value as Country);
         setState(() {
           selected = value;
         });

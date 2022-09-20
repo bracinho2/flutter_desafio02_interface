@@ -1,7 +1,9 @@
 // see: https://en.wikipedia.org/wiki/List_of_country_calling_codes
 // for list of country/calling codes
 
-const List<Country> countries = [
+import 'package:cambona/core/generics_dropdown.dart';
+
+List<Country> countries = [
   Country(
     name: "Afghanistan",
     flag: "🇦🇫",
@@ -1984,24 +1986,24 @@ const List<Country> countries = [
   ),
 ];
 
-class Country {
-  final String name;
-  final String flag;
+class Country extends DropDownGenerics {
   final String code;
   final String dialCode;
   final String regionCode;
   final int minLength;
   final int maxLength;
-
-  const Country({
-    required this.name,
-    required this.flag,
+  Country({
+    required String name,
+    required String flag,
     required this.code,
     required this.dialCode,
+    this.regionCode = '',
     required this.minLength,
     required this.maxLength,
-    this.regionCode = "",
-  });
+  }) : super(
+          name: name,
+          flag: flag,
+        );
 
   String get fullCountryCode {
     return dialCode + regionCode;

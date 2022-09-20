@@ -1,3 +1,4 @@
+import 'package:cambona/core/generics_dropdown.dart';
 import 'package:cambona/dummy/contries.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
 import 'package:cambona/widgets/drop_down_menu.dart';
@@ -20,7 +21,7 @@ class RegisterPage extends StatelessWidget {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Country? selectedCountry;
+  DropDownGenerics? selectedCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +87,15 @@ class RegisterPage extends StatelessWidget {
                           validator: Validators.validateEmail,
                           prefixIcon: Icons.email,
                         ),
+                        const TextTitleWidget(title: 'Country'),
+                        DropDownWidget(
+                          data: countries,
+                          onChanged: (country) {
+                            selectedCountry = country;
+                            _phoneController.text = country!.dialCode;
+                          },
+                          label: 'Country',
+                        ),
                         const TextTitleWidget(title: 'Phone'),
                         InputTextFieldWidget(
                           label: 'Phone',
@@ -102,14 +112,7 @@ class RegisterPage extends StatelessWidget {
                           actionIcon: true,
                           prefixIcon: Icons.password,
                         ),
-                        const TextTitleWidget(title: 'Country'),
-                        DropDownWidget(
-                          data: countries,
-                          onChanged: (country) {
-                            selectedCountry = country;
-                          },
-                          label: 'Country',
-                        ),
+
                         //REGISTER BUTTON
                         ConfirmButtonWidget(
                           title: 'Sign Up',

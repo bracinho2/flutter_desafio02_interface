@@ -15,14 +15,7 @@ class AppWidget extends StatelessWidget {
       title: 'Desafio 02',
       theme: themeDataNormal,
       scaffoldMessengerKey: SnackBarManager.snackKey,
-      home: SplashPage(),
-      // initialRoute: '/',
-      // routes: {
-      //   AppRouter.SPLASH: (_) => const SplashPage(),
-      //   AppRouter.LOGIN: (_) => LoginPage(),
-      //   AppRouter.REGISTER: (_) => RegisterPage(),
-      //   AppRouter.PROFILE: (_) => ProfilePage(),
-      // },
+      home: const SplashPage(),
     );
   }
 }

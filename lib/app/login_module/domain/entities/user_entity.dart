@@ -1,4 +1,4 @@
-import 'package:cambona/dummy/contries.dart';
+import 'package:cambona/core/generics_dropdown.dart';
 
 class UserEntity {
   final String name;
@@ -6,7 +6,7 @@ class UserEntity {
   final String email;
   final String phone;
   final String password;
-  final Country country;
+  final DropDownGenerics country;
 
   UserEntity({
     required this.name,

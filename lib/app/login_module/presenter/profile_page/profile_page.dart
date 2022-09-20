@@ -1,5 +1,7 @@
+import 'package:cambona/core/generics_dropdown.dart';
 import 'package:cambona/dummy/contries.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
+import 'package:cambona/widgets/custom_upload_photo_widget.dart';
 import 'package:cambona/widgets/drop_down_menu.dart';
 import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
@@ -26,7 +28,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
 
-    Country? selectedCountry;
+    DropDownGenerics? selectedCountry;
 
     if (FakeUser.user != null) {
       _nameController.text = FakeUser.user!.name;
@@ -71,6 +73,7 @@ class ProfilePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
+                        const CustomUploadPhotoWidget(),
                         //INPUT TEXT FORM FIELD
                         const TextTitleWidget(title: 'Full Name'),
                         InputTextFieldWidget(
@@ -93,6 +96,15 @@ class ProfilePage extends StatelessWidget {
                           validator: Validators.validateEmail,
                           prefixIcon: Icons.email,
                         ),
+                        const TextTitleWidget(title: 'Country'),
+                        DropDownWidget(
+                          data: countries,
+                          onChanged: (country) {
+                            _phoneController.text = country!.dialCode;
+                          },
+                          label: 'Country',
+                          value: selectedCountry as Country,
+                        ),
                         const TextTitleWidget(title: 'Phone'),
                         InputTextFieldWidget(
                           label: 'Phone',
@@ -108,13 +120,6 @@ class ProfilePage extends StatelessWidget {
                           obscure: true,
                           actionIcon: true,
                           prefixIcon: Icons.password,
-                        ),
-                        const TextTitleWidget(title: 'Country'),
-                        DropDownWidget(
-                          data: countries,
-                          onChanged: (country) {},
-                          label: 'Country',
-                          value: selectedCountry,
                         ),
                         //REGISTER BUTTON
                         ConfirmButtonWidget(

@@ -1,3 +1,4 @@
+import 'package:cambona/core/generics_dropdown.dart';
 import 'package:cambona/dummy/contries.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/login_module/domain/entities/user_entity.dart';
@@ -13,7 +14,7 @@ class RegisterController {
     required String email,
     required String phone,
     required String password,
-    required Country country,
+    required DropDownGenerics country,
   }) {
     if (formKey.currentState!.validate()) {
       FakeUser.user = UserEntity(
