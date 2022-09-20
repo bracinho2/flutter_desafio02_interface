@@ -33,7 +33,8 @@ class RegisterPage extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 500),
+          constraints: BoxConstraints(
+              maxWidth: Resposivity.automatic(500, mediaQueryData)),
           child: ListView(
             children: [
               WelcomeWidget(
@@ -57,7 +58,8 @@ class RegisterPage extends StatelessWidget {
                   minHeight: Resposivity.automatic(628, mediaQueryData),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Resposivity.automatic(24, mediaQueryData)),
                   child: Form(
                     key: controller.formKey,
                     child: Column(
@@ -89,6 +91,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         const TextTitleWidget(title: 'Country'),
                         DropDownWidget(
+                          validator: Validators.validateDropDown,
                           data: countries,
                           onChanged: (country) {
                             selectedCountry = country;
@@ -123,7 +126,7 @@ class RegisterPage extends StatelessWidget {
                               email: _emailController.text,
                               phone: _phoneController.text,
                               password: _passwordController.text,
-                              country: selectedCountry!,
+                              country: selectedCountry,
                             );
                             if (validate) {
                               Navigator.pop(context);

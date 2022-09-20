@@ -7,6 +7,7 @@ class DropDownWidget extends StatefulWidget {
   final List<Country> data;
   final Country? value;
   final Function(Country?) onChanged;
+  final String? Function(DropDownGenerics?)? validator;
 
   const DropDownWidget({
     Key? key,
@@ -14,6 +15,7 @@ class DropDownWidget extends StatefulWidget {
     required this.data,
     required this.onChanged,
     required this.label,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -32,6 +34,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<DropDownGenerics>(
+      validator: widget.validator,
       decoration: InputDecoration(
         prefixIcon: selected == null
             ? const SizedBox(
@@ -72,7 +75,10 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               const SizedBox(
                 width: 10,
               ),
-              Text(value.name),
+              Text(
+                value.name,
+                overflow: TextOverflow.clip,
+              ),
             ],
           ),
         );

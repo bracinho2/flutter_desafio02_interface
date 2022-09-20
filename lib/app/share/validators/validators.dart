@@ -1,3 +1,6 @@
+import 'package:cambona/core/generics_dropdown.dart';
+import 'package:cambona/dummy/contries.dart';
+
 class Validators {
   static String? validateName(String? value) {
     if (value!.isEmpty) return 'Inform your name!';
@@ -46,8 +49,14 @@ class Validators {
   }
 
   static String? validatePhone(String? value) {
+    if (value!.length < 13) return 'Forgot a number?';
+    RegExp onlyNumbers = RegExp("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d");
+    if (!onlyNumbers.hasMatch(value)) return 'Forgot a number?';
     return null;
   }
+
+  static String? validateDropDown(DropDownGenerics? value) =>
+      value == null ? 'Select your Country' : null;
 
   //minimo 6 caracteres;
   //letra maiuscula + minuscula

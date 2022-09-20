@@ -1,7 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class CustomUploadPhotoWidget extends StatelessWidget {
-  const CustomUploadPhotoWidget({Key? key}) : super(key: key);
+  final VoidCallback onTap;
+  final File? file;
+
+  const CustomUploadPhotoWidget({
+    Key? key,
+    required this.onTap,
+    this.file,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -9,28 +18,30 @@ class CustomUploadPhotoWidget extends StatelessWidget {
       child: SizedBox(
         width: 110,
         height: 110,
-        child: InkWell(
-          onTap: () {
-            print(
-              'Print ==)',
-            );
-          },
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.only(top: 150),
-                height: 110,
-                width: 110,
-                decoration: const BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(30.0),
-                  ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(top: 150),
+              height: 110,
+              width: 110,
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                image: file != null
+                    ? DecorationImage(
+                        image: FileImage(file!),
+                        fit: BoxFit.cover,
+                      )
+                    : null,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(30.0),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: InkWell(
+                onTap: onTap,
                 child: Container(
                   decoration: const BoxDecoration(
                     color: Colors.blue,
@@ -47,8 +58,8 @@ class CustomUploadPhotoWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

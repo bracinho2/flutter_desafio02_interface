@@ -213,7 +213,7 @@ List<Country> countries = [
     maxLength: 8,
   ),
   Country(
-    name: "Bolivia, Plurinational State of bolivia",
+    name: "Bolivia",
     flag: "🇧🇴",
     code: "BO",
     dialCode: "591",

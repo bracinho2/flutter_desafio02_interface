@@ -17,8 +17,9 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2)).then((_) => Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginPage())));
+    Future.delayed(const Duration(seconds: 2)).then((_) =>
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginPage())));
   }
 
   @override
@@ -26,7 +27,6 @@ class _SplashPageState extends State<SplashPage> {
     final mediaQueryData = MediaQuery.of(context);
 
     return Scaffold(
-      backgroundColor: Colors.black12,
       resizeToAvoidBottomInset: true,
       body: Align(
         alignment: Alignment.center,
@@ -35,8 +35,9 @@ class _SplashPageState extends State<SplashPage> {
           child: Text(
             'Welcome',
             style: TextStyle(
-              fontSize: Resposivity.automatic(40, mediaQueryData),
+              fontSize: Resposivity.fontSize(40, mediaQueryData),
               fontWeight: FontWeight.bold,
+              color: Colors.deepPurple[400],
             ),
           ),
         ),

@@ -20,6 +20,7 @@ Reproduzir mockup mais fiel possivel no flutter. O MOCKUP está disponível para
         - CPF;
         - Telefone;
         - Senha;
+        - Selecionar Foto;
     - Register;
         - Nome;
         - Email;
@@ -60,6 +61,14 @@ Reproduzir mockup mais fiel possivel no flutter. O MOCKUP está disponível para
 
 
 - Implementar dois elementos no Profile:
-    - Obrigatório selecionar um pais e uma foto;
-    - Utilizar um package para selecionar a foto;
-
+   
+    1. Utilizar um package para selecionar a foto;
+        - Para a seleção da foto foi utilizado o package 'ImagePicker' disponível no repositório pub.dev;
+            - Dica 01: utilize a instância de File do package dart.io para retornar o caminho (path) da imagem selecionada;
+            - Dica 02: crie um método 'onTap' para carregar a imagem assíncrono; assim a tela poderá ser reconstruida com a nova imagem selecionada no tempo certo, ou seja, primeiro carrega o caminho, depois envia o caminho ao widget para então mostrar a imagem;
+    
+    2. Obrigatório selecionar um pais;
+        - Para selecionar o país tenho algumas dicas imprescindíveis:
+            - Dica 01: Não utilize o DropDownButton diretamente; Você deverá criar um widget customizado para facilitar a passagem e a recuperação de dados;
+            - Dica 02: Atenção para o a função de retorno de dados em seu projeto; ela é muito importante para você poder recuperar os dados depois;
+            - Uma dica que eu particularmente achei muito legal é o uso de uma interface (ou contrato ou classe abstrata) para tornar todas as entidadades usuárias deste botão padronizadas, ou seja, se todas as entidades tiverem uma relação comum será possível reaproveitar o botão facilmente. Dependendo do projeto e se todas as listas forem exatamente iguais também será possível utilizar o generics para tornar o botão customizável e reaproveitavel;

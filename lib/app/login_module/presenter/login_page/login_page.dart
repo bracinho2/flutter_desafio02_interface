@@ -7,6 +7,7 @@ import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/login_page/login_controller.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_page.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
+import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
 class LoginPage extends StatelessWidget {
@@ -27,7 +28,8 @@ class LoginPage extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 500),
+          constraints: BoxConstraints(
+              maxWidth: Resposivity.automatic(500, mediaQueryData)),
           child: ListView(
             children: [
               WelcomeWidget(
@@ -36,8 +38,12 @@ class LoginPage extends StatelessWidget {
                 ask: 'Dont have an account?',
                 link: 'Register',
                 route: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterPage(),
+                    ),
+                  );
                 },
               ),
               Container(
@@ -52,7 +58,8 @@ class LoginPage extends StatelessWidget {
                   minHeight: Resposivity.automatic(628, mediaQueryData),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Resposivity.automatic(24, mediaQueryData)),
                   child: Form(
                     key: controller.formKey,
                     child: Column(
@@ -80,36 +87,40 @@ class LoginPage extends StatelessWidget {
                         ConfirmButtonWidget(
                           title: 'Sign In',
                           onPressed: () {
-                            // final validate = controller.loginValidate(
-                            //   email: _emailController.text,
-                            //   password: _passwordController.text,
-                            // );
+                            final validate = controller.loginValidate(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            );
 
-                            // if (_emailController.text.isEmpty &&
-                            //     _passwordController.text.isEmpty) {
-                            // } else {
-                            //   if (validate) {
-                            //     Navigator.push(
-                            //         context,
-                            //         MaterialPageRoute(
-                            //             builder: ((context) => ProfilePage())));
-                            //   } else {
-                            //     SnackBarManager().showError(
-                            //         message: 'Email or Password Wrong');
-                            //   }
-                            // }
+                            if (_emailController.text.isEmpty &&
+                                _passwordController.text.isEmpty) {
+                            } else {
+                              if (validate) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ProfilePage(),
+                                  ),
+                                );
+                              } else {
+                                SnackBarManager().showError(
+                                    message: 'Email or Password Wrong');
+                              }
+                            }
 
                             Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: ((context) => ProfilePage())));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ProfilePage(),
+                              ),
+                            );
                           },
                         ),
                       ],
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

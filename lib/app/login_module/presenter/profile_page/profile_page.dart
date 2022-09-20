@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cambona/core/generics_dropdown.dart';
 import 'package:cambona/dummy/contries.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
@@ -10,12 +11,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_controller.dart';
 import 'package:flutter_desafio02_interface/app/share/dummy_data/dummy_user.dart';
-
 import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final controller = ProfileController();
 
   final _nameController = TextEditingController();
@@ -23,6 +28,7 @@ class ProfilePage extends StatelessWidget {
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
+  File? avatarImage;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +51,9 @@ class ProfilePage extends StatelessWidget {
       body: Align(
         alignment: Alignment.center,
         child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 500),
+          constraints: BoxConstraints(
+            maxWidth: Resposivity.automatic(500, mediaQueryData),
+          ),
           child: ListView(
             children: [
               const WelcomeWidget(
@@ -65,7 +73,9 @@ class ProfilePage extends StatelessWidget {
                   minHeight: Resposivity.automatic(628, mediaQueryData),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: Resposivity.automatic(24, mediaQueryData),
+                  ),
                   child: Form(
                     key: controller.formKey,
                     child: Column(
@@ -73,7 +83,16 @@ class ProfilePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        const CustomUploadPhotoWidget(),
+                        CustomUploadPhotoWidget(
+                          file: avatarImage,
+                          onTap: () async {
+                            await controller.pickImage();
+
+                            setState(() {
+                              avatarImage = controller.file;
+                            });
+                          },
+                        ),
                         //INPUT TEXT FORM FIELD
                         const TextTitleWidget(title: 'Full Name'),
                         InputTextFieldWidget(
