@@ -1,13 +1,7 @@
+import 'package:cambona/cambona.dart';
 import 'package:cambona/core/generics_dropdown.dart';
-import 'package:cambona/dummy/contries.dart';
 import 'package:cambona/validators/validators.dart';
-import 'package:cambona/widgets/confirm_buttom_widget.dart';
-import 'package:cambona/widgets/custom_drop_down_widget.dart';
-import 'package:cambona/widgets/input_text_field_widget.dart';
-import 'package:cambona/widgets/text_title_widget.dart';
-import 'package:cambona/widgets/welcome_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_controller.dart';
 
 // ignore: must_be_immutable

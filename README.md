@@ -45,11 +45,13 @@ Reproduzir mockup mais fiel possivel no flutter. O MOCKUP está disponível para
     - No arquivo principal você deve exportar os arquivos; Do contrário eles não ficarão visíveis para o outro projeto;
 
     > '''//exportação dos arquivos;
+
     export 'themes/themes.dart';'''
 
     - Há a necessidade de relatar no Pubspec o caminho para o novo package:
 
     '''#o caminho poderá ter um ../ indicando a navegação entre pastas;
+
   cambona:
     path: cambona '''
 
@@ -74,7 +76,7 @@ Reproduzir mockup mais fiel possivel no flutter. O MOCKUP está disponível para
             - Uma dica que eu particularmente achei muito legal é o uso de uma interface (ou contrato ou classe abstrata) para tornar todas as entidadades usuárias deste botão padronizadas, ou seja, se todas as entidades tiverem uma relação comum será possível reaproveitar o botão facilmente. Dependendo do projeto e se todas as listas forem exatamente iguais também será possível utilizar o generics para tornar o botão customizável e reaproveitavel;
 
 
-##
+## FIM
 
 Espero que você, que chegou até aqui, tenha gostado e aprendido alguns dos conceitos envolvidos no dia-a-dia do programador!
 
