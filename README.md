@@ -72,3 +72,12 @@ Reproduzir mockup mais fiel possivel no flutter. O MOCKUP está disponível para
             - Dica 01: Não utilize o DropDownButton diretamente; Você deverá criar um widget customizado para facilitar a passagem e a recuperação de dados;
             - Dica 02: Atenção para o a função de retorno de dados em seu projeto; ela é muito importante para você poder recuperar os dados depois;
             - Uma dica que eu particularmente achei muito legal é o uso de uma interface (ou contrato ou classe abstrata) para tornar todas as entidadades usuárias deste botão padronizadas, ou seja, se todas as entidades tiverem uma relação comum será possível reaproveitar o botão facilmente. Dependendo do projeto e se todas as listas forem exatamente iguais também será possível utilizar o generics para tornar o botão customizável e reaproveitavel;
+
+
+##
+
+Espero que você, que chegou até aqui, tenha gostado e aprendido alguns dos conceitos envolvidos no dia-a-dia do programador!
+
+Bons estudos! =)
+
+Forte 73.

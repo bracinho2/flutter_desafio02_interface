@@ -11,7 +11,6 @@ class LoginController {
       if (FakeUser.user == null) {
         return false;
       }
-
       if (email == FakeUser.user!.email &&
           password == FakeUser.user!.password) {
         return true;

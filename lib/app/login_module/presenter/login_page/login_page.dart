@@ -94,6 +94,8 @@ class LoginPage extends StatelessWidget {
 
                             if (_emailController.text.isEmpty &&
                                 _passwordController.text.isEmpty) {
+                              SnackBarManager().showError(
+                                  message: 'Email or Password Wrong');
                             } else {
                               if (validate) {
                                 Navigator.push(
