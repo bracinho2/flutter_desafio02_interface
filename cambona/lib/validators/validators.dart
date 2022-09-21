@@ -1,5 +1,4 @@
 import 'package:cambona/core/generics_dropdown.dart';
-import 'package:cambona/dummy/contries.dart';
 
 class Validators {
   static String? validateName(String? value) {

@@ -1,3 +1,4 @@
+import 'package:cambona/validators/validators.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
 import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
@@ -8,7 +9,6 @@ import 'package:flutter_desafio02_interface/app/login_module/presenter/login_pag
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_page.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
 import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
-import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -27,104 +27,100 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(),
       body: Align(
         alignment: Alignment.center,
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-              maxWidth: Resposivity.automatic(500, mediaQueryData)),
-          child: ListView(
-            children: [
-              WelcomeWidget(
-                title: 'Hello',
-                subtitle: 'Are You new here?',
-                ask: 'Dont have an account?',
-                link: 'Register',
-                route: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RegisterPage(),
-                    ),
-                  );
-                },
-              ),
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
+        child: ListView(
+          children: [
+            WelcomeWidget(
+              title: 'Hello',
+              subtitle: 'Are You new here?',
+              ask: 'Dont have an account?',
+              link: 'Register',
+              route: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => RegisterPage(),
                   ),
+                );
+              },
+            ),
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
                 ),
-                constraints: BoxConstraints(
-                  minHeight: Resposivity.automatic(628, mediaQueryData),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                      horizontal: Resposivity.automatic(24, mediaQueryData)),
-                  child: Form(
-                    key: controller.formKey,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        const TextTitleWidget(title: 'Email'),
-                        InputTextFieldWidget(
-                          label: 'Email',
-                          controller: _emailController,
-                          validator: Validators.validateEmail,
-                          prefixIcon: Icons.person,
-                        ),
-                        const TextTitleWidget(title: 'Password'),
-                        InputTextFieldWidget(
-                          label: 'Password',
-                          controller: _passwordController,
-                          validator: Validators.validatePassword,
-                          obscure: true,
-                          actionIcon: true,
-                          prefixIcon: Icons.password,
-                        ),
-                        //REGISTER BUTTON
-                        ConfirmButtonWidget(
-                          title: 'Sign In',
-                          onPressed: () {
-                            final validate = controller.loginValidate(
-                              email: _emailController.text,
-                              password: _passwordController.text,
-                            );
+              ),
+              constraints: BoxConstraints(
+                minHeight: Resposivity.automatic(628, mediaQueryData),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Resposivity.automatic(24, mediaQueryData)),
+                child: Form(
+                  key: controller.formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      const TextTitleWidget(title: 'Email'),
+                      InputTextFieldWidget(
+                        label: 'Email',
+                        controller: _emailController,
+                        validator: Validators.validateEmail,
+                        prefixIcon: Icons.person,
+                      ),
+                      const TextTitleWidget(title: 'Password'),
+                      InputTextFieldWidget(
+                        label: 'Password',
+                        controller: _passwordController,
+                        validator: Validators.validatePassword,
+                        obscure: true,
+                        actionIcon: true,
+                        prefixIcon: Icons.password,
+                      ),
+                      //REGISTER BUTTON
+                      ConfirmButtonWidget(
+                        title: 'Sign In',
+                        onPressed: () {
+                          final validate = controller.loginValidate(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
 
-                            if (_emailController.text.isEmpty &&
-                                _passwordController.text.isEmpty) {
+                          if (_emailController.text.isEmpty &&
+                              _passwordController.text.isEmpty) {
+                            SnackBarManager()
+                                .showError(message: 'Email or Password Wrong');
+                          } else {
+                            if (validate) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const ProfilePage(),
+                                ),
+                              );
+                            } else {
                               SnackBarManager().showError(
                                   message: 'Email or Password Wrong');
-                            } else {
-                              if (validate) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const ProfilePage(),
-                                  ),
-                                );
-                              } else {
-                                SnackBarManager().showError(
-                                    message: 'Email or Password Wrong');
-                              }
                             }
+                          }
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ProfilePage(),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ProfilePage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

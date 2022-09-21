@@ -2,14 +2,14 @@ import 'package:cambona/core/generics_dropdown.dart';
 import 'package:cambona/dummy/contries.dart';
 import 'package:flutter/material.dart';
 
-class DropDownWidget extends StatefulWidget {
+class CustomDropDownWidget extends StatefulWidget {
   final String label;
   final List<Country> data;
   final Country? value;
   final Function(Country?) onChanged;
   final String? Function(DropDownGenerics?)? validator;
 
-  const DropDownWidget({
+  const CustomDropDownWidget({
     Key? key,
     this.value,
     required this.data,
@@ -19,10 +19,10 @@ class DropDownWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<DropDownWidget> createState() => _DropDownWidgetState();
+  State<CustomDropDownWidget> createState() => _CustomDropDownWidgetState();
 }
 
-class _DropDownWidgetState extends State<DropDownWidget> {
+class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
   DropDownGenerics? selected;
 
   @override
@@ -62,8 +62,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
         ),
       ),
       isExpanded: true,
-      items:
-          widget.data.map<DropdownMenuItem<DropDownGenerics>>((Country value) {
+      items: widget.data.map((Country value) {
         return DropdownMenuItem<DropDownGenerics>(
           value: value,
           child: Row(

@@ -30,15 +30,12 @@ class _SplashPageState extends State<SplashPage> {
       resizeToAvoidBottomInset: true,
       body: Align(
         alignment: Alignment.center,
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 500),
-          child: Text(
-            'Welcome',
-            style: TextStyle(
-              fontSize: Resposivity.fontSize(40, mediaQueryData),
-              fontWeight: FontWeight.bold,
-              color: Colors.deepPurple[400],
-            ),
+        child: Text(
+          'Welcome',
+          style: TextStyle(
+            fontSize: Resposivity.fontSize(40, mediaQueryData),
+            fontWeight: FontWeight.bold,
+            color: Colors.deepPurple[400],
           ),
         ),
       ),
