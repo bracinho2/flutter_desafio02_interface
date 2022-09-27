@@ -1,23 +1,57 @@
+import 'package:cambona/themes/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-// ignore: must_be_immutable
+class InputTextFieldPasswordWidget extends StatelessWidget {
+  final Widget label;
+  final TextEditingController controller;
+  final IconData prefixIcon;
+  final String? Function(String?)? validator;
+  final bool obscure;
+  final bool suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
+  const InputTextFieldPasswordWidget({
+    Key? key,
+    required this.label,
+    required this.controller,
+    required this.prefixIcon,
+    this.validator,
+    this.obscure = false,
+    this.suffixIcon = false,
+    this.inputFormatters,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InputTextFieldWidget(
+      label: label,
+      controller: controller,
+      prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      validator: validator,
+      inputFormatters: inputFormatters,
+    );
+  }
+}
+
 class InputTextFieldWidget extends StatefulWidget {
   final Widget label;
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final IconData prefixIcon;
   final bool obscure;
-  final bool actionIcon;
-  void Function()? function;
-  InputTextFieldWidget({
+  final bool suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
+
+  const InputTextFieldWidget({
     Key? key,
     required this.label,
     required this.controller,
     this.validator,
-    required this.prefixIcon,
     this.obscure = false,
-    this.actionIcon = false,
-    this.function,
+    this.suffixIcon = false,
+    required this.prefixIcon,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -38,7 +72,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
       decoration: InputDecoration(
         label: widget.label,
         filled: false,
-        suffixIcon: widget.actionIcon
+        suffixIcon: widget.suffixIcon
             ? InkWell(
                 onTap: () {
                   setState(() {
@@ -50,7 +84,9 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
                   width: 64,
                   child: Icon(
                     showPassword ? Icons.visibility : Icons.visibility_off,
-                    color: showPassword ? Colors.blue : Colors.grey,
+                    color: showPassword
+                        ? themeDataNormal.primaryColor
+                        : Colors.grey,
                   ),
                 ),
               )
@@ -60,16 +96,9 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
           width: 64,
           child: Icon(
             widget.prefixIcon,
-            color: Colors.blue,
           ),
         ),
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(5),
-          ),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.blue, width: 0.0),
           borderRadius: BorderRadius.all(
             Radius.circular(5),
           ),
@@ -78,6 +107,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
       controller: widget.controller,
       validator: widget.validator,
       obscureText: showPassword,
+      inputFormatters: widget.inputFormatters,
     );
   }
 }
