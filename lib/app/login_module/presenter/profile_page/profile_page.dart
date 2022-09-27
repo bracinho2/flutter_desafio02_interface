@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'package:cambona/core/generics_dropdown.dart';
-import 'package:cambona/dummy/contries.dart';
-import 'package:cambona/validators/validators.dart';
+import 'package:cambona/themes/themes.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
 import 'package:cambona/widgets/custom_drop_down_widget.dart';
 import 'package:cambona/widgets/custom_upload_photo_widget.dart';
@@ -9,9 +7,11 @@ import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
 import 'package:cambona/widgets/welcome_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
+import 'package:flutter_desafio02_interface/app/core/responsivity/app_responsivity.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_controller.dart';
+import 'package:flutter_desafio02_interface/app/share/dummy_data/contries.dart';
 import 'package:flutter_desafio02_interface/app/share/dummy_data/dummy_user.dart';
+import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
 
-    DropDownGenerics? selectedCountry;
+    Country? selectedCountry;
 
     if (FakeUser.user != null) {
       _nameController.text = FakeUser.user!.name;
@@ -52,10 +52,19 @@ class _ProfilePageState extends State<ProfilePage> {
         alignment: Alignment.center,
         child: ListView(
           children: [
-            const WelcomeWidget(
-              title: 'Setting up your',
-              subtitle: 'profile',
-              ask: 'Add your profile photo',
+            WelcomeWidget(
+              title: Text(
+                '😎 Setting up your',
+                style: themeDataNormal.textTheme.titleLarge,
+              ),
+              subtitle: Text(
+                'profile',
+                style: themeDataNormal.textTheme.titleLarge,
+              ),
+              ask: Text(
+                'Add your profile foto',
+                style: themeDataNormal.textTheme.titleMedium,
+              ),
             ),
             Container(
               decoration: const BoxDecoration(
@@ -66,11 +75,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               constraints: BoxConstraints(
-                minHeight: Resposivity.automatic(628, mediaQueryData),
+                minHeight: Responsivity.automatic(628, mediaQueryData),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: Resposivity.automatic(24, mediaQueryData),
+                  horizontal: Responsivity.automatic(24, mediaQueryData),
                 ),
                 child: Form(
                   key: controller.formKey,
@@ -90,46 +99,90 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                       ),
                       //INPUT TEXT FORM FIELD
-                      const TextTitleWidget(title: 'Full Name'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Full Name',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Full Name',
+                        label: const Text('Full Name'),
                         controller: _nameController,
                         validator: Validators.validateName,
                         prefixIcon: Icons.person,
                       ),
-                      const TextTitleWidget(title: 'CPF'),
+                      TextTitleWidget(
+                        title: Text(
+                          'CPF',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'CPF',
+                        label: const Text('CPF'),
                         controller: _cpfController,
                         validator: Validators.validateCPF,
                         prefixIcon: Icons.numbers,
                       ),
-                      const TextTitleWidget(title: 'Email'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Email',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Email',
+                        label: const Text('Email'),
                         controller: _emailController,
                         validator: Validators.validateEmail,
                         prefixIcon: Icons.email,
                       ),
-                      const TextTitleWidget(title: 'Country'),
-                      CustomDropDownWidget(
-                        data: countries,
+                      const TextTitleWidget(title: Text('Country')),
+                      CustomDropDownWidget<Country>(
+                        items: countries.map((Country value) {
+                          return DropdownMenuItem<Country>(
+                            value: value,
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  child: Text(value.name),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  value.flag,
+                                  overflow: TextOverflow.clip,
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
                         onChanged: (country) {
                           _phoneController.text = country!.dialCode;
                         },
                         label: 'Country',
                         value: selectedCountry as Country,
                       ),
-                      const TextTitleWidget(title: 'Phone'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Phone',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Phone',
+                        label: const Text('Phone'),
                         controller: _phoneController,
                         validator: Validators.validateEmail,
                         prefixIcon: Icons.phone,
                       ),
-                      const TextTitleWidget(title: 'Password'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Password',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Password',
+                        label: const Text('Password'),
                         controller: _passwordController,
                         validator: Validators.validatePassword,
                         obscure: true,

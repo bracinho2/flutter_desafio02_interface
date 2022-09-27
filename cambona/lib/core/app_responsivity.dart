@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Resposivity {
+class Responsivity {
+  static double automatic(double tamanho, MediaQueryData data) {
+    final width = data.size.width;
+    final height = data.size.height;
+
+    return width > height
+        ? _calcHeight(tamanho, data)
+        : _calcWidth(tamanho, data);
+  }
+
   static double _calcWidth(double tamanho, MediaQueryData data) {
     final size = data.size;
 
@@ -17,15 +26,6 @@ class Resposivity {
     var coeficiente = tamanho / 896;
 
     return size.height * coeficiente;
-  }
-
-  static double automatic(double tamanho, MediaQueryData data) {
-    final width = data.size.width;
-    final height = data.size.height;
-
-    return width > height
-        ? _calcHeight(tamanho, data)
-        : _calcWidth(tamanho, data);
   }
 
   static double fontSize(double fontSize, MediaQueryData data) {

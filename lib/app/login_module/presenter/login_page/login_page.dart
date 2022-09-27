@@ -1,14 +1,9 @@
-import 'package:cambona/validators/validators.dart';
-import 'package:cambona/widgets/confirm_buttom_widget.dart';
-import 'package:cambona/widgets/input_text_field_widget.dart';
-import 'package:cambona/widgets/text_title_widget.dart';
-import 'package:cambona/widgets/welcome_widget.dart';
+import 'package:cambona/cambona.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desafio02_interface/app/core/app_responsivity.dart';
+import 'package:flutter_desafio02_interface/app/core/navigation/app_navigator.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/login_page/login_controller.dart';
-import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_page.dart';
-import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
-import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
+import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -30,18 +25,32 @@ class LoginPage extends StatelessWidget {
         child: ListView(
           children: [
             WelcomeWidget(
-              title: 'Hello',
-              subtitle: 'Are You new here?',
-              ask: 'Dont have an account?',
-              link: 'Register',
-              route: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RegisterPage(),
-                  ),
-                );
-              },
+              title: Text(
+                '👋 Hello',
+                style: themeDataNormal.textTheme.titleLarge,
+              ),
+              subtitle: Text(
+                'Are You new here?',
+                style: themeDataNormal.textTheme.titleLarge,
+              ),
+              ask: RichText(
+                text: TextSpan(
+                  style: themeDataNormal.textTheme.titleMedium,
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'If you have an account ',
+                      style: themeDataNormal.textTheme.labelLarge,
+                    ),
+                    TextSpan(
+                      text: ' | Register',
+                      style: themeDataNormal.textTheme.titleMedium,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap =
+                            (() => AppNavigator().go(AppNavigator.REGISTER)),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Container(
               decoration: const BoxDecoration(
@@ -52,66 +61,52 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               constraints: BoxConstraints(
-                minHeight: Resposivity.automatic(628, mediaQueryData),
+                minHeight: Responsivity.automatic(628, mediaQueryData),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: Resposivity.automatic(24, mediaQueryData)),
+                  horizontal: Responsivity.automatic(24, mediaQueryData),
+                ),
                 child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   key: controller.formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      const TextTitleWidget(title: 'Email'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Email',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Email',
+                        label: const Text('Email'),
                         controller: _emailController,
                         validator: Validators.validateEmail,
                         prefixIcon: Icons.person,
                       ),
-                      const TextTitleWidget(title: 'Password'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Password',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Password',
+                        label: const Text('Password'),
                         controller: _passwordController,
                         validator: Validators.validatePassword,
                         obscure: true,
                         actionIcon: true,
                         prefixIcon: Icons.password,
                       ),
-                      //REGISTER BUTTON
                       ConfirmButtonWidget(
                         title: 'Sign In',
                         onPressed: () {
-                          final validate = controller.loginValidate(
+                          controller.loginValidate(
                             email: _emailController.text,
                             password: _passwordController.text,
-                          );
-
-                          if (_emailController.text.isEmpty &&
-                              _passwordController.text.isEmpty) {
-                            SnackBarManager()
-                                .showError(message: 'Email or Password Wrong');
-                          } else {
-                            if (validate) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ProfilePage(),
-                                ),
-                              );
-                            } else {
-                              SnackBarManager().showError(
-                                  message: 'Email or Password Wrong');
-                            }
-                          }
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const ProfilePage(),
-                            ),
                           );
                         },
                       ),

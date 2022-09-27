@@ -1,8 +1,9 @@
-import 'package:cambona/core/generics_dropdown.dart';
+import 'package:flutter_desafio02_interface/app/share/dummy_data/contries.dart';
 
 class Validators {
   static String? validateName(String? value) {
     if (value!.isEmpty) return 'Inform your name!';
+    if (value.split(' ').length < 2) return 'You need inform name and lastname';
     return null;
   }
 
@@ -36,30 +37,28 @@ class Validators {
     RegExp haveSpecialCaracters = RegExp("[.,!@#\$%&*]", caseSensitive: false);
 
     if (!haveNumber.hasMatch(value)) return 'Your password need numbers!';
-    if (!haveLowerCase.hasMatch(value))
+    if (!haveLowerCase.hasMatch(value)) {
       return 'Your password need a lower case!';
-    if (!haveUpperCase.hasMatch(value))
-      return 'Your password need an upper case!';
+    }
 
-    if (!haveSpecialCaracters.hasMatch(value))
+    if (!haveUpperCase.hasMatch(value)) {
       return 'Your password need an upper case!';
+    }
+
+    if (!haveSpecialCaracters.hasMatch(value)) {
+      return 'You need an special caracterer!';
+    }
 
     return null;
   }
 
   static String? validatePhone(String? value) {
-    if (value!.length < 13) return 'Forgot a number?';
-    RegExp onlyNumbers = RegExp("\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d\\d");
+    if (value!.length > 9 && value.length < 13) return 'Forgot a number?';
+    RegExp onlyNumbers = RegExp("[\\d]{9,13}");
     if (!onlyNumbers.hasMatch(value)) return 'Forgot a number?';
     return null;
   }
 
-  static String? validateDropDown(DropDownGenerics? value) =>
+  static String? validateDropDown(Country? value) =>
       value == null ? 'Select your Country' : null;
-
-  //minimo 6 caracteres;
-  //letra maiuscula + minuscula
-  //numeros
-  //especial
-
 }

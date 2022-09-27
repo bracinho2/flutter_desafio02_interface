@@ -1,7 +1,8 @@
+import 'package:cambona/cambona.dart';
 import 'package:flutter/material.dart';
 
 class TextTitleWidget extends StatelessWidget {
-  final String title;
+  final Widget title;
   const TextTitleWidget({
     Key? key,
     required this.title,
@@ -9,19 +10,13 @@ class TextTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
     return Padding(
-      padding: const EdgeInsets.only(
-        top: 32,
-        bottom: 25,
+      padding: EdgeInsets.only(
+        top: Responsivity.automatic(32, mediaQueryData),
+        bottom: Responsivity.automatic(24, mediaQueryData),
       ),
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 17,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      child: title,
     );
   }
 }

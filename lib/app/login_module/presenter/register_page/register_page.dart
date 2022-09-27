@@ -1,8 +1,10 @@
 import 'package:cambona/cambona.dart';
-import 'package:cambona/core/generics_dropdown.dart';
-import 'package:cambona/validators/validators.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_controller.dart';
+import 'package:flutter_desafio02_interface/app/share/dummy_data/contries.dart';
+import 'package:flutter_desafio02_interface/app/share/validators/masks.dart';
+import 'package:flutter_desafio02_interface/app/share/validators/validators.dart';
 
 // ignore: must_be_immutable
 class RegisterPage extends StatelessWidget {
@@ -16,7 +18,7 @@ class RegisterPage extends StatelessWidget {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  DropDownGenerics? selectedCountry;
+  Country? selectedCountry;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +32,33 @@ class RegisterPage extends StatelessWidget {
         child: ListView(
           children: [
             WelcomeWidget(
-              title: 'Hello',
-              subtitle: 'Are You new here?',
-              ask: 'if you have an account',
-              link: 'Login',
-              route: () {
-                Navigator.pop(context);
-              },
+              title: Text(
+                '😎 Hello',
+                style: themeDataNormal.textTheme.titleLarge,
+              ),
+              subtitle: Text(
+                'Are You new here?',
+                style: themeDataNormal.textTheme.titleLarge,
+              ),
+              ask: RichText(
+                text: TextSpan(
+                  style: themeDataNormal.textTheme.titleMedium,
+                  children: <TextSpan>[
+                    const TextSpan(
+                      text: 'If you have an account ',
+                      style: TextStyle(
+                        color: Colors.black26,
+                      ),
+                    ),
+                    TextSpan(
+                      text: ' | Login',
+                      style: themeDataNormal.textTheme.titleMedium,
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = (() => Navigator.pop(context)),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Container(
               decoration: const BoxDecoration(
@@ -47,12 +69,13 @@ class RegisterPage extends StatelessWidget {
                 ),
               ),
               constraints: BoxConstraints(
-                minHeight: Resposivity.automatic(628, mediaQueryData),
+                minHeight: Responsivity.automatic(628, mediaQueryData),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: Resposivity.automatic(24, mediaQueryData)),
+                    horizontal: Responsivity.automatic(24, mediaQueryData)),
                 child: Form(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   key: controller.formKey,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -60,47 +83,99 @@ class RegisterPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       //INPUT TEXT FORM FIELD
-                      const TextTitleWidget(title: 'Full Name'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Full Name',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Full Name',
+                        label: const Text('Full Name'),
                         controller: _nameController,
                         validator: Validators.validateName,
                         prefixIcon: Icons.person,
                       ),
-                      const TextTitleWidget(title: 'CPF'),
+                      TextTitleWidget(
+                        title: Text(
+                          'CPF',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'CPF',
+                        label: const Text('CPF'),
                         controller: _cpfController,
                         validator: Validators.validateCPF,
                         prefixIcon: Icons.numbers,
+                        inputFormatters: [
+                          CpfMask(),
+                        ],
                       ),
-                      const TextTitleWidget(title: 'Email'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Email',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Email',
+                        label: const Text('Email'),
                         controller: _emailController,
                         validator: Validators.validateEmail,
                         prefixIcon: Icons.email,
                       ),
-                      const TextTitleWidget(title: 'Country'),
-                      CustomDropDownWidget(
+                      TextTitleWidget(
+                        title: Text(
+                          'Country',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
+                      CustomDropDownWidget<Country>(
                         validator: Validators.validateDropDown,
-                        data: countries,
+                        items: countries.map((Country value) {
+                          return DropdownMenuItem<Country>(
+                            value: value,
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  backgroundColor: Colors.transparent,
+                                  child: Text(value.flag),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  value.name,
+                                  overflow: TextOverflow.clip,
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
                         onChanged: (country) {
                           selectedCountry = country;
                           _phoneController.text = country!.dialCode;
                         },
                         label: 'Country',
                       ),
-                      const TextTitleWidget(title: 'Phone'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Phone',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Phone',
+                        label: const Text('Phone'),
                         controller: _phoneController,
                         validator: Validators.validatePhone,
                         prefixIcon: Icons.phone,
                       ),
-                      const TextTitleWidget(title: 'Password'),
+                      TextTitleWidget(
+                        title: Text(
+                          'Password',
+                          style: themeDataNormal.textTheme.titleSmall,
+                        ),
+                      ),
                       InputTextFieldWidget(
-                        label: 'Password',
+                        label: const Text('Password'),
                         controller: _passwordController,
                         validator: Validators.validatePassword,
                         obscure: true,
@@ -112,7 +187,7 @@ class RegisterPage extends StatelessWidget {
                       ConfirmButtonWidget(
                         title: 'Sign Up',
                         onPressed: () {
-                          final validate = controller.registerValidate(
+                          controller.registerValidate(
                             name: _nameController.text,
                             cpf: _cpfController.text,
                             email: _emailController.text,
@@ -120,9 +195,6 @@ class RegisterPage extends StatelessWidget {
                             password: _passwordController.text,
                             country: selectedCountry,
                           );
-                          if (validate) {
-                            Navigator.pop(context);
-                          }
                         },
                       ),
                     ],

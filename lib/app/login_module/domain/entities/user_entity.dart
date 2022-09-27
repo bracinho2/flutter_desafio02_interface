@@ -1,4 +1,4 @@
-import 'package:cambona/core/generics_dropdown.dart';
+import 'package:flutter_desafio02_interface/app/share/dummy_data/contries.dart';
 
 class UserEntity {
   final String name;
@@ -6,7 +6,7 @@ class UserEntity {
   final String email;
   final String phone;
   final String password;
-  final DropDownGenerics country;
+  final Country country;
 
   UserEntity({
     required this.name,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Resposivity {
+class Responsivity {
   static double _calcWidth(double tamanho, MediaQueryData data) {
     final size = data.size;
 

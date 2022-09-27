@@ -12,20 +12,23 @@ class ImagePickerImpl implements IPickedImageDatasource {
 
   @override
   Future<File?> getImage({required bool loadCamera}) async {
+    late final ImageSource source;
     if (loadCamera) {
-      //implementar a camera;
+      source = ImageSource.camera;
     } else {
-      try {
-        final image = await _imagePicker.pickImage(source: ImageSource.gallery);
-        if (image == null) return null;
-
-        final imageTemporary = File(image.path);
-        return imageTemporary;
-      } on PlatformException catch (e) {
-        print('Filed to pick image $e');
-      }
-      return null;
+      source = ImageSource.gallery;
     }
+
+    try {
+      final image = await _imagePicker.pickImage(source: source);
+      if (image == null) return null;
+
+      final imageTemporary = File(image.path);
+      return imageTemporary;
+    } on PlatformException catch (e) {
+      print('Filed to pick image $e');
+    }
+
     return null;
   }
 }
