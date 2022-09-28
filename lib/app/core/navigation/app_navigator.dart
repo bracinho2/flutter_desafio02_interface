@@ -9,19 +9,19 @@ class AppNavigator {
   static const String REGISTER = '/register';
   static const String PROFILE = '/profile';
 
-  void _goPage(String route) {
-    Navigator.pushNamed(navigatorKey.currentState!.context, route);
+  static void _goPage(String route) {
+    navigatorKey.currentState!.pushNamed(route);
   }
 
-  void _backPage() {
-    Navigator.pop(navigatorKey.currentState!.context);
+  static void _backPage() {
+    navigatorKey.currentState!.pop();
   }
 
-  void _goReplacement(String route) {
-    Navigator.pushReplacementNamed(navigatorKey.currentState!.context, route);
+  static void _goReplacement(String route) {
+    navigatorKey.currentState!.pushReplacementNamed(route);
   }
 
-  void go(String route) => _goPage(route);
-  void back() => _backPage();
-  void goReplacement(String route) => _goReplacement(route);
+  static void go(String route) => _goPage(route);
+  static void back() => _backPage();
+  static void goReplacement(String route) => _goReplacement(route);
 }

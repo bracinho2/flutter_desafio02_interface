@@ -9,3 +9,4 @@ export 'widgets/text_title_widget.dart';
 export 'widgets/custom_upload_photo_widget.dart';
 export 'widgets/welcome_widget.dart';
 export 'widgets/custom_drop_down_widget.dart';
+export 'widgets/input_text_field_password_widget.dart';

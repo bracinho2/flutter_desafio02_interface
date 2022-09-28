@@ -5,6 +5,25 @@ class SnackBarManager {
   static final GlobalKey<ScaffoldMessengerState> snackKey =
       GlobalKey<ScaffoldMessengerState>();
 
+  void showError({required String message}) => _show(
+        message: message,
+        icon: Icons.warning_rounded,
+        iconColor: Colors.red,
+      );
+
+  void showWarning({required String message}) => _show(
+        message: message,
+        icon: Icons.warning_amber_rounded,
+        iconColor: Colors.yellow,
+      );
+
+  void showSuccess({required String message}) => _show(
+        message: message,
+        icon: Icons.check_circle_outline,
+        iconColor: Colors.green,
+        backgroundColor: Colors.green[100],
+      );
+
   void _show({
     required String message,
     required IconData icon,
@@ -47,23 +66,4 @@ class SnackBarManager {
 
     snackKey.currentState?.showSnackBar(snackBar);
   }
-
-  void showError({required String message}) => _show(
-        message: message,
-        icon: Icons.warning_rounded,
-        iconColor: Colors.red,
-      );
-
-  void showWarning({required String message}) => _show(
-        message: message,
-        icon: Icons.warning_amber_rounded,
-        iconColor: Colors.yellow,
-      );
-
-  void showSuccess({required String message}) => _show(
-        message: message,
-        icon: Icons.check_circle_outline,
-        iconColor: Colors.green,
-        backgroundColor: Colors.green[100],
-      );
 }

@@ -34,15 +34,15 @@ class RegisterPage extends StatelessWidget {
             WelcomeWidget(
               title: Text(
                 '😎 Hello',
-                style: themeDataNormal.textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               subtitle: Text(
                 'Are You new here?',
-                style: themeDataNormal.textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               ask: RichText(
                 text: TextSpan(
-                  style: themeDataNormal.textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleMedium,
                   children: <TextSpan>[
                     const TextSpan(
                       text: 'If you have an account ',
@@ -52,7 +52,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     TextSpan(
                       text: ' | Login',
-                      style: themeDataNormal.textTheme.titleMedium,
+                      style: themeData.textTheme.titleMedium,
                       recognizer: TapGestureRecognizer()
                         ..onTap = (() => Navigator.pop(context)),
                     ),
@@ -86,7 +86,7 @@ class RegisterPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Full Name',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -98,7 +98,7 @@ class RegisterPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'CPF',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -113,7 +113,7 @@ class RegisterPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Email',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -125,7 +125,7 @@ class RegisterPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Country',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
                       CustomDropDownWidget<Country>(
@@ -159,7 +159,7 @@ class RegisterPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Phone',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -171,15 +171,15 @@ class RegisterPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Password',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
-                      InputTextFieldWidget(
+                      InputTextFieldPasswordWidget(
                         label: const Text('Password'),
                         controller: _passwordController,
                         validator: Validators.validatePassword,
                         obscure: true,
-                        actionIcon: true,
+                        suffixIcon: true,
                         prefixIcon: Icons.password,
                       ),
 

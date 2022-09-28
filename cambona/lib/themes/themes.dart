@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final primaryColor = Colors.deepPurple[400]!;
 
-final themeDataNormal = ThemeData(
+final themeData = ThemeData(
   //ESQUEMA DE CORES
   primaryColor: primaryColor,
 
@@ -56,9 +56,19 @@ final themeDataNormal = ThemeData(
 
   //INPUT DECORATION THEME
   inputDecorationTheme: InputDecorationTheme(
-    labelStyle: const TextStyle(
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: primaryColor,
+        width: 0.0,
+      ),
+      borderRadius: const BorderRadius.all(
+        Radius.circular(5),
+      ),
+    ),
+    labelStyle: TextStyle(
       fontFamily: 'Roboto',
       fontSize: 14,
+      color: primaryColor,
     ),
     iconColor: primaryColor,
     prefixIconColor: primaryColor,

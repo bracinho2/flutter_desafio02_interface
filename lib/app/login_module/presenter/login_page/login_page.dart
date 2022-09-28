@@ -27,26 +27,27 @@ class LoginPage extends StatelessWidget {
             WelcomeWidget(
               title: Text(
                 '👋 Hello',
-                style: themeDataNormal.textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               subtitle: Text(
                 'Are You new here?',
-                style: themeDataNormal.textTheme.titleLarge,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               ask: RichText(
                 text: TextSpan(
-                  style: themeDataNormal.textTheme.titleMedium,
+                  style: themeData.textTheme.titleMedium,
                   children: <TextSpan>[
                     TextSpan(
                       text: 'If you have an account ',
-                      style: themeDataNormal.textTheme.labelLarge,
+                      style: Theme.of(context).textTheme.labelLarge,
                     ),
                     TextSpan(
                       text: ' | Register',
-                      style: themeDataNormal.textTheme.titleMedium,
+                      style: themeData.textTheme.titleMedium,
                       recognizer: TapGestureRecognizer()
-                        ..onTap =
-                            (() => AppNavigator().go(AppNavigator.REGISTER)),
+                        ..onTap = (() => AppNavigator.go(
+                              AppNavigator.REGISTER,
+                            )),
                     ),
                   ],
                 ),
@@ -78,7 +79,7 @@ class LoginPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Email',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -90,15 +91,15 @@ class LoginPage extends StatelessWidget {
                       TextTitleWidget(
                         title: Text(
                           'Password',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
-                      InputTextFieldWidget(
+                      InputTextFieldPasswordWidget(
                         label: const Text('Password'),
                         controller: _passwordController,
                         validator: Validators.validatePassword,
                         obscure: true,
-                        actionIcon: true,
+                        suffixIcon: true,
                         prefixIcon: Icons.password,
                       ),
                       ConfirmButtonWidget(

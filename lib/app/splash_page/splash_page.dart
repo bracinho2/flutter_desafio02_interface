@@ -17,8 +17,11 @@ class _SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 2))
-        .then((_) => AppNavigator().goReplacement(AppNavigator.LOGIN));
+    Future.delayed(const Duration(seconds: 2)).then(
+      (_) => AppNavigator.goReplacement(
+        AppNavigator.LOGIN,
+      ),
+    );
   }
 
   @override
@@ -29,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
         alignment: Alignment.center,
         child: Text(
           'Welcome',
-          style: themeDataNormal.textTheme.displayLarge,
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
     );

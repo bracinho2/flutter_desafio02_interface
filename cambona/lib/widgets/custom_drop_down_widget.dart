@@ -1,4 +1,4 @@
-import 'package:cambona/core/app_responsivity.dart';
+import 'package:cambona/cambona.dart';
 import 'package:flutter/material.dart';
 
 class CustomDropDownWidget<T> extends StatelessWidget {
@@ -21,6 +21,15 @@ class CustomDropDownWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
     return DropdownButtonFormField<T>(
+      icon: Padding(
+        padding: const EdgeInsets.only(
+          right: 20,
+        ),
+        child: Icon(
+          Icons.arrow_downward_rounded,
+          color: Theme.of(context).primaryColor,
+        ),
+      ),
       validator: validator,
       decoration: InputDecoration(
           prefixIcon: SizedBox(

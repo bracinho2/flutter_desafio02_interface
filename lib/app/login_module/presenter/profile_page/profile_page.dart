@@ -3,6 +3,7 @@ import 'package:cambona/themes/themes.dart';
 import 'package:cambona/widgets/confirm_buttom_widget.dart';
 import 'package:cambona/widgets/custom_drop_down_widget.dart';
 import 'package:cambona/widgets/custom_upload_photo_widget.dart';
+import 'package:cambona/widgets/input_text_field_password_widget.dart';
 import 'package:cambona/widgets/input_text_field_widget.dart';
 import 'package:cambona/widgets/text_title_widget.dart';
 import 'package:cambona/widgets/welcome_widget.dart';
@@ -33,6 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
+    final themeData = Theme.of(context);
 
     Country? selectedCountry;
 
@@ -55,15 +57,15 @@ class _ProfilePageState extends State<ProfilePage> {
             WelcomeWidget(
               title: Text(
                 '😎 Setting up your',
-                style: themeDataNormal.textTheme.titleLarge,
+                style: themeData.textTheme.titleLarge,
               ),
               subtitle: Text(
                 'profile',
-                style: themeDataNormal.textTheme.titleLarge,
+                style: themeData.textTheme.titleLarge,
               ),
               ask: Text(
                 'Add your profile foto',
-                style: themeDataNormal.textTheme.titleMedium,
+                style: themeData.textTheme.titleMedium,
               ),
             ),
             Container(
@@ -102,7 +104,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextTitleWidget(
                         title: Text(
                           'Full Name',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -114,7 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextTitleWidget(
                         title: Text(
                           'CPF',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -126,7 +128,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextTitleWidget(
                         title: Text(
                           'Email',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -166,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextTitleWidget(
                         title: Text(
                           'Phone',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: themeData.textTheme.titleSmall,
                         ),
                       ),
                       InputTextFieldWidget(
@@ -178,17 +180,18 @@ class _ProfilePageState extends State<ProfilePage> {
                       TextTitleWidget(
                         title: Text(
                           'Password',
-                          style: themeDataNormal.textTheme.titleSmall,
+                          style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
-                      InputTextFieldWidget(
+                      InputTextFieldPasswordWidget(
                         label: const Text('Password'),
                         controller: _passwordController,
                         validator: Validators.validatePassword,
                         obscure: true,
-                        actionIcon: true,
+                        suffixIcon: true,
                         prefixIcon: Icons.password,
                       ),
+
                       //REGISTER BUTTON
                       ConfirmButtonWidget(
                         title: 'Confirm',

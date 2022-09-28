@@ -1,52 +1,21 @@
+import 'package:cambona/core/app_responsivity.dart';
 import 'package:cambona/themes/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class InputTextFieldPasswordWidget extends StatelessWidget {
+class InputTextFieldPasswordWidget extends StatefulWidget {
   final Widget label;
   final TextEditingController controller;
-  final IconData prefixIcon;
   final String? Function(String?)? validator;
+  final IconData prefixIcon;
   final bool obscure;
   final bool suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
+
   const InputTextFieldPasswordWidget({
     Key? key,
     required this.label,
     required this.controller,
-    required this.prefixIcon,
-    this.validator,
-    this.obscure = false,
-    this.suffixIcon = false,
-    this.inputFormatters,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InputTextFieldWidget(
-      label: label,
-      controller: controller,
-      prefixIcon: prefixIcon,
-      suffixIcon: suffixIcon,
-      validator: validator,
-      inputFormatters: inputFormatters,
-    );
-  }
-}
-
-class InputTextFieldWidget extends StatefulWidget {
-  final Widget label;
-  final TextEditingController controller;
-  final String? Function(String?)? validator;
-  final IconData prefixIcon;
-  final bool obscure;
-  final bool suffixIcon;
-  final List<TextInputFormatter>? inputFormatters;
-
-  const InputTextFieldWidget({
-    Key? key,
-    required this.label,
-    required this.controller,
     this.validator,
     this.obscure = false,
     this.suffixIcon = false,
@@ -55,10 +24,11 @@ class InputTextFieldWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<InputTextFieldWidget> createState() => _InputTextFieldWidgetState();
+  State<InputTextFieldPasswordWidget> createState() =>
+      _InputTextFieldWidgetState();
 }
 
-class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
+class _InputTextFieldWidgetState extends State<InputTextFieldPasswordWidget> {
   bool showPassword = false;
   @override
   void initState() {
@@ -68,6 +38,7 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQueryData = MediaQuery.of(context);
     return TextFormField(
       decoration: InputDecoration(
         label: widget.label,
@@ -80,13 +51,11 @@ class _InputTextFieldWidgetState extends State<InputTextFieldWidget> {
                   });
                 },
                 child: SizedBox(
-                  height: 64,
-                  width: 64,
+                  height: Responsivity.automatic(64, mediaQueryData),
+                  width: Responsivity.automatic(64, mediaQueryData),
                   child: Icon(
                     showPassword ? Icons.visibility : Icons.visibility_off,
-                    color: showPassword
-                        ? themeDataNormal.primaryColor
-                        : Colors.grey,
+                    color: showPassword ? themeData.primaryColor : Colors.grey,
                   ),
                 ),
               )

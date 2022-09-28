@@ -4,7 +4,7 @@ import 'package:flutter_desafio02_interface/app/core/navigation/app_navigator.da
 import 'package:flutter_desafio02_interface/app/login_module/presenter/login_page/login_page.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/profile_page/profile_page.dart';
 import 'package:flutter_desafio02_interface/app/login_module/presenter/register_page/register_page.dart';
-import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snake_bar_manager.dart';
+import 'package:flutter_desafio02_interface/app/share/snake_bar_manager/snack_bar_manager.dart';
 import 'package:flutter_desafio02_interface/app/splash_page/splash_page.dart';
 
 class AppWidget extends StatelessWidget {
@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Desafio 02',
-      theme: themeDataNormal,
+      theme: themeData,
       navigatorKey: AppNavigator.navigatorKey,
       scaffoldMessengerKey: SnackBarManager.snackKey,
       //home: const SplashPage(),

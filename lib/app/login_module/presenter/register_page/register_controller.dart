@@ -25,7 +25,7 @@ class RegisterController {
         country: country!,
       );
       print(FakeUser.user);
-      AppNavigator().back();
+      AppNavigator.back();
       return;
     }
     return;
